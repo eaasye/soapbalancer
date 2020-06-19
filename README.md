@@ -14,7 +14,7 @@ sm_soapbalancer_overkill 1/0, default 0, Enable/Disable tracking overkill damage
 
   Installation: Download and move the soapbalancer.smx plugins into your servers tf/addons/sourcemod/plugins directory.
 
-  More detailed plugin description: https://pastebin.com/Gt8Zdxkw
+  More detailed plugin description: https://pastebin.com/2N6T1Jgk
 
   An explanation of the logic used to decide the best possible swap between 2 players
 
