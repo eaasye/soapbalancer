@@ -6,8 +6,8 @@ public Plugin myinfo = {
         name = "[TF2] Team Balance",
         author = "easye",
         description = "Balances teams, intended for soap dm",
-        version = "1.0.1",
-        url=""
+        version = "1.2.0",
+        url="https://github.com/eaasye/soapbalancer"
 }
 
 enum struct PlayerSwap {
@@ -20,7 +20,7 @@ enum struct PlayerSwap {
 }
 
 //0 = damage, 1 = old frags, 2 = old damage, 3 = skip ResetHeartBeat, 4 = old team
-ConVar soapPercent, soapInterval, soapEnabled;
+ConVar soapPercent, soapInterval, soapEnabled, soapOverkill;
 Handle HeartBeat;
 int playerArray[MAXPLAYERS][5];
 bool skipHeartBeat = false;
@@ -35,6 +35,7 @@ public void OnPluginStart() {
 	soapPercent = CreateConVar("sm_soapbalancer_percent", "35", "If one team has x percent less frags than the other team, balance the teams", _, true, 0.0, true, 100.0);
 	soapEnabled = CreateConVar("sm_soapbalancer_enabled", "1", "Enables/Disables the soap balancer plugin");
 	soapInterval = CreateConVar("sm_soapbalancer_interval", "120", "Check every x seconds if the teams are unbalanced", _, true, 5.0);
+	soapOverkill = CreateConVar("sm_soapbalancer_overkill", "0", "Track overkill damage");
 	soapInterval.AddChangeHook(OnConVarChange);
 	
 	char cvarValue[16];  
@@ -241,7 +242,8 @@ public Action Event_PlayerHurt(Event event, const char[] name, bool dontBroadcas
 	}
 
 	if (IsValidClient(attacker) && userid != attacker) {
-		playerArray[attacker][0] += trueDamage;
+		if (!soapOverkill.BoolValue) playerArray[attacker][0] += trueDamage;
+		else if (soapOverkill.BoolValue) playerArray[attacker][0] += damage;
 	} 
 
 	return Plugin_Continue;
