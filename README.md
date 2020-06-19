@@ -8,6 +8,8 @@ sm_soapbalancer_interval #seconds, default 120, Interval between each team balan
 
 sm_soapbalancer_percent #percent, default 35, Percentage that the plugin considers "unbalanced"
 
+sm_soapbalancer_overkill 1/0, default 0, Enable/Disable tracking overkill damage
+
 ## Description
 
   Installation: Download and move the soapbalancer.smx plugins into your servers tf/addons/sourcemod/plugins directory.
