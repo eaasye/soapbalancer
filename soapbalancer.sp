@@ -2,11 +2,13 @@
 #include <sdktools>
 #include <tf2_stocks>
 
+#define PLUGIN_VERSION		"1.2.1"
+
 public Plugin myinfo = {                                                                                                                                                         
         name = "[TF2] Team Balance",
         author = "easye",
         description = "Balances teams, intended for soap dm",
-        version = "1.2.0",
+        version = PLUGIN_VERSION,
         url="https://github.com/eaasye/soapbalancer"
 }
 
@@ -31,11 +33,12 @@ public void OnPluginStart() {
 	
 	HookEvent("player_hurt", Event_PlayerHurt, EventHookMode_Pre);
 	HookEvent("player_team", Event_PlayerTeam, EventHookMode_Post);
-	
-	soapPercent = CreateConVar("sm_soapbalancer_percent", "35", "If one team has x percent less frags than the other team, balance the teams", _, true, 0.0, true, 100.0);
+
+	CreateConVar("sm_soapbalancer_version", PLUGIN_VERSION, "Soapbalancer plugin version number");
+	soapPercent = CreateConVar("sm_soapbalancer_percent", "20", "If one team has x percent less frags than the other team, balance the teams", _, true, 0.0, true, 100.0);
 	soapEnabled = CreateConVar("sm_soapbalancer_enabled", "1", "Enables/Disables the soap balancer plugin");
-	soapInterval = CreateConVar("sm_soapbalancer_interval", "120", "Check every x seconds if the teams are unbalanced", _, true, 5.0);
-	soapOverkill = CreateConVar("sm_soapbalancer_overkill", "0", "Track overkill damage");
+	soapInterval = CreateConVar("sm_soapbalancer_interval", "105", "Check every x seconds if the teams are unbalanced", _, true, 5.0);
+	soapOverkill = CreateConVar("sm_soapbalancer_overkill", "1", "Track overkill damage");
 	soapInterval.AddChangeHook(OnConVarChange);
 	
 	char cvarValue[16];  
@@ -107,12 +110,12 @@ public Action Timer_HeartBeat(Handle timer) {
 	if (p1 != p2 && (currentPlayers % 2) == 0) {
 
 		if (p1 > p2 && (1.0 - p2) > swapPercent) {
-			PrintToChatAll("\x0700ffff[SB]\x07C43F3B Red team is dominating!");
+			PrintToChatAll("\x0700ffff[SB]\x07C43F3B Red team is dominant!");
 			BalanceTeams(TFTeam_Red, TFTeam_Blue);
 		}
 
 		else if ( p2 > p1 && (1.0 - p1) > swapPercent) {
-			PrintToChatAll("\x0700ffff[SB]\x074EA6C1 Blue team is dominating!");
+			PrintToChatAll("\x0700ffff[SB]\x074EA6C1 Blue team is dominant!");
 			BalanceTeams(TFTeam_Blue, TFTeam_Red);
 		}
 
