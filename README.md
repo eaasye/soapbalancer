@@ -4,11 +4,11 @@ TF2 balancing plugin intended for SOAP DM servers
 
 sm_soapbalancer_enabled 1/0, default 1, Enables/Disables the plugin
 
-sm_soapbalancer_interval #seconds, default 120, Interval between each team balance
+sm_soapbalancer_interval #seconds, default 105, Interval between each team balance
 
-sm_soapbalancer_percent #percent, default 35, Percentage that the plugin considers "unbalanced"
+sm_soapbalancer_percent #percent, default 20, Percentage that the plugin considers "unbalanced"
 
-sm_soapbalancer_overkill 1/0, default 0, Enable/Disable tracking overkill damage
+sm_soapbalancer_overkill 1/0, default 1, Enable/Disable tracking overkill damage
 
 ## Description
 
